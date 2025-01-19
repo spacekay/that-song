@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: that-song
+  profiles:
+    active: local
