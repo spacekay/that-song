@@ -11,3 +11,10 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQLDialect
+  mustache:
+    prefix: classpath:/templates/
+    suffix: .mustache
+
+logging:
+  level:
+    org.springframework.web.servlet: DEBUG
