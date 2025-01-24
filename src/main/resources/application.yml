@@ -3,3 +3,17 @@ spring:
     name: that-song
   profiles:
     active: local
+
+server:
+  servlet:
+    encoding:
+      force-response: true
+      charset: UTF-8
+
+logging:
+  level:
+    root: info
+    org.springframework: info
+    com.spacekay.thatsong: debug
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
