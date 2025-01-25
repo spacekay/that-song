@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>That Song Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Google Fonts - Noto Sans KR 추가 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+        /* 기본 폰트 설정 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* 다크 모드 스타일 */
+        .dark-mode {
+            background-color: #1f2937; /* 다크 배경색 */
+            color: #d1fae5; /* 민트 텍스트 */
+        }
+
+        .dark-mode a {
+            color: #6ee7b7;
+        }
+
+        .dark-mode a:hover {
+            color: #34d399;
+        }
+    </style>
+</head>
+<body class="dark-mode font-sans">
+<div class="flex min-h-screen">
+    <!-- 사이드바 -->
+    <aside id="sidebar"
+           class="bg-teal-800 w-64 h-screen flex-shrink-0 transform transition-transform duration-300 -translate-x-full md:translate-x-0 fixed md:relative z-10">
+        <div class="p-4 text-2xl font-bold border-b border-teal-700">
+            That Song Admin
+        </div>
+        <nav class="p-4 space-y-2">
+            <h3 class="text-teal-300 font-bold mb-2">메타 데이터 관리</h3>
+            <ul class="space-y-1">
+                <li><a href="/admin/artists" class="block p-2 rounded hover:bg-teal-700">아티스트</a></li>
+                <li><a href="/admin/members" class="block p-2 rounded hover:bg-teal-700">멤버</a></li>
+                <li><a href="/admin/albums" class="block p-2 rounded hover:bg-teal-700">앨범</a></li>
+                <li><a href="/admin/songs" class="block p-2 rounded hover:bg-teal-700">곡</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <!-- 메인 콘텐츠 -->
+    <main class="flex-1 p-6 transition-all duration-300 md:pl-12 md:pr-12">
+        <header class="flex justify-between items-center pb-4 border-b border-teal-700">
+            <h1 class="text-2xl font-bold">아티스트 관리</h1>
+            <a href="/admin/artists/create" class="px-4 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
+                신규 등록
+            </a>
+        </header>
+        <section class="mt-6">
+            <h2 class="text-lg font-bold mb-4">아티스트 목록</h2>
+            <table class="table-auto w-full bg-teal-900 shadow-md rounded-lg">
+                <thead>
+                <tr class="bg-teal-700 text-teal-200">
+                    <th class="p-2 border">아이디</th>
+                    <th class="p-2 border">이름</th>
+                    <th class="p-2 border">코드</th>
+                    <th class="p-2 border">타입</th>
+                    <th class="p-2 border">작업</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#artists}}
+                    <tr class="hover:bg-teal-800">
+                        <td class="p-2 border text-center">{{id}}</td>
+                        <td class="p-2 border text-center">
+                            <a href="/admin/artists/{{id}}" class="text-teal-400 hover:underline">
+                                {{nameKr}} ({{nameEn}})
+                            </a>
+                        </td>
+                        <td class="p-2 border text-center">{{code}}</td>
+                        <td class="p-2 border text-center">{{#isGroup}}그룹{{/isGroup}}{{^isGroup}}솔로{{/isGroup}}</td>
+                        <td class="p-2 border text-center">
+                            <a href="/admin/artists/{{id}}/delete" class="text-red-500 hover:underline">삭제</a>
+                        </td>
+                    </tr>
+                {{/artists}}
+                </tbody>
+            </table>
+        </section>
+    </main>
+</div>
+</body>
+</html>
