@@ -32,21 +32,7 @@
 <body class="dark-mode font-sans">
 <div class="flex min-h-screen">
     <!-- 사이드바 -->
-    <aside id="sidebar"
-           class="bg-teal-800 w-64 h-screen flex-shrink-0 transform transition-transform duration-300 -translate-x-full md:translate-x-0 fixed md:relative z-10">
-        <div class="p-4 text-2xl font-bold border-b border-teal-700">
-            That Song Admin
-        </div>
-        <nav class="p-4 space-y-2">
-            <h3 class="text-teal-300 font-bold mb-2">메타 데이터 관리</h3>
-            <ul class="space-y-1">
-                <li><a href="/admin/artists" class="block p-2 rounded hover:bg-teal-700">아티스트</a></li>
-                <li><a href="/admin/members" class="block p-2 rounded hover:bg-teal-700">멤버</a></li>
-                <li><a href="/admin/albums" class="block p-2 rounded hover:bg-teal-700">앨범</a></li>
-                <li><a href="/admin/songs" class="block p-2 rounded hover:bg-teal-700">곡</a></li>
-            </ul>
-        </nav>
-    </aside>
+    {{>sidebar}}
 
     <!-- 메인 콘텐츠 -->
     <main class="flex-1 p-6 transition-all duration-300 md:pl-12 md:pr-12">
@@ -77,7 +63,7 @@
                     <input type="text" id="code" name="code" value=""
                            class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
                 </div>
-                
+
                 <div>
                     <label class="block text-teal-200 font-bold mb-2">타입</label>
                     <div class="flex items-center space-x-4">
