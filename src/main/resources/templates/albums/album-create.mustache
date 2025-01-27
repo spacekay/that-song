@@ -37,69 +37,77 @@
     <!-- 메인 콘텐츠 -->
     <main class="flex-1 p-6 transition-all duration-300 md:pl-12 md:pr-12">
         <header class="flex justify-between items-center pb-4 border-b border-teal-700">
-            <h1 class="text-2xl font-bold">아티스트 등록</h1>
-            <a href="/admin/artists" class="px-4 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
+            <h1 class="text-2xl font-bold">앨범 등록</h1>
+            <a href="/admin/albums" class="px-4 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
                 목록 보기
             </a>
         </header>
 
         <section class="mt-6">
-            <h2 class="text-lg font-bold mb-4">아티스트 정보 등록</h2>
-            <form action="/admin/artists/create" method="POST" class="space-y-4 bg-teal-900 p-6 rounded-lg shadow-md">
+            <h2 class="text-lg font-bold mb-4">앨범 정보 등록</h2>
+            <form action="/admin/albums/create" method="POST" class="space-y-4 bg-teal-900 p-6 rounded-lg shadow-md">
                 <div>
-                    <label for="nameKr" class="block text-teal-200 font-bold mb-2">이름 (한글)</label>
-                    <input type="text" id="nameKr" name="nameKr" value=""
+                    <label for="name" class="block text-teal-200 font-bold mb-2">이름</label>
+                    <input type="text" id="name" name="name" value=""
                            class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
                 </div>
 
                 <div>
-                    <label for="nameEn" class="block text-teal-200 font-bold mb-2">이름 (영문)</label>
-                    <input type="text" id="nameEn" name="nameEn" value=""
+                    <label for="artist" class="block text-teal-200 font-bold mb-2">아티스트</label>
+                    <select id="artist" name="artistId"
+                            class="form-select w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                        {{#artists}}
+                            <option value="{{id}}">{{nameKr}}</option>
+                        {{/artists}}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="releaseDate" class="block text-teal-200 font-bold mb-2">발매일</label>
+                    <input type="date" id="releaseDate" name="releaseDate" value=""
                            class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
                 </div>
 
                 <div>
-                    <label for="code" class="block text-teal-200 font-bold mb-2">코드</label>
-                    <input type="text" id="code" name="code" value=""
-                           class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                    <label for="albumType" class="block text-teal-200 font-bold mb-2">앨범 타입</label>
+                    <select id="albumType" name="type"
+                            class="form-select w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                        {{#albumTypes}}
+                            <option value="{{name}}">{{value}}</option>
+                        {{/albumTypes}}
+                    </select>
                 </div>
 
                 <div>
-                    <label class="block text-teal-200 font-bold mb-2">타입</label>
+                    <label class="block text-teal-200 font-bold mb-2">리패키지 여부</label>
                     <div class="flex items-center space-x-4">
                         <label class="inline-flex items-center">
-                            <input type="radio" name="isGroup" value="true" checked
+                            <input type="radio" name="isRepackage" value="false" checked
                                    class="form-radio text-teal-600">
-                            <span class="ml-2 text-teal-200">그룹</span>
+                            <span class="ml-2 text-teal-200">일반</span>
                         </label>
                         <label class="inline-flex items-center">
-                            <input type="radio" name="isGroup" value="false"
+                            <input type="radio" name="isRepackage" value="true"
                                    class="form-radio text-teal-600">
-                            <span class="ml-2 text-teal-200">솔로</span>
+                            <span class="ml-2 text-teal-200">리패키지</span>
                         </label>
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-teal-200 font-bold mb-2">활동 여부</label>
+                    <label class="block text-teal-200 font-bold mb-2">공개 상태</label>
                     <div class="flex items-center space-x-4">
                         <label class="inline-flex items-center">
                             <input type="radio" name="isActive" value="true" checked
                                    class="form-radio text-teal-600">
-                            <span class="ml-2 text-teal-200">활동 중</span>
+                            <span class="ml-2 text-teal-200">공개</span>
                         </label>
                         <label class="inline-flex items-center">
                             <input type="radio" name="isActive" value="false"
                                    class="form-radio text-teal-600">
-                            <span class="ml-2 text-teal-200">미활동</span>
+                            <span class="ml-2 text-teal-200">미공개</span>
                         </label>
                     </div>
-                </div>
-
-                <div>
-                    <label for="debutDate" class="block text-teal-200 font-bold mb-2">데뷔일</label>
-                    <input type="date" id="debutDate" name="debutDate" value=""
-                           class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
                 </div>
 
                 <div class="flex justify-center mt-6">

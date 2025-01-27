@@ -37,39 +37,41 @@
     <!-- 메인 콘텐츠 -->
     <main class="flex-1 p-6 transition-all duration-300 md:pl-12 md:pr-12">
         <header class="flex justify-between items-center pb-4 border-b border-teal-700">
-            <h1 class="text-2xl font-bold">아티스트 관리</h1>
-            <a href="/admin/artists/create" class="px-4 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
+            <h1 class="text-2xl font-bold">앨범 관리</h1>
+            <a href="/admin/albums/create" class="px-4 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
                 신규 등록
             </a>
         </header>
         <section class="mt-6">
-            <h2 class="text-lg font-bold mb-4">아티스트 목록</h2>
+            <h2 class="text-lg font-bold mb-4">앨범 목록</h2>
             <table class="table-auto w-full bg-teal-900 shadow-md rounded-lg">
                 <thead>
                 <tr class="bg-teal-700 text-teal-200">
                     <th class="p-2 border">아이디</th>
                     <th class="p-2 border">이름</th>
-                    <th class="p-2 border">코드</th>
+                    <th class="p-2 border">아티스트</th>
                     <th class="p-2 border">타입</th>
                     <th class="p-2 border">작업</th>
                 </tr>
                 </thead>
                 <tbody>
-                {{#artists}}
+                {{#albums}}
                     <tr class="hover:bg-teal-800">
                         <td class="p-2 border text-center">{{id}}</td>
                         <td class="p-2 border text-center">
-                            <a href="/admin/artists/{{id}}" class="text-teal-400 hover:underline">
-                                {{nameKr}} ({{nameEn}})
+                            <a href="/admin/albums/{{id}}" class="text-teal-400 hover:underline">
+                                {{name}}
                             </a>
                         </td>
-                        <td class="p-2 border text-center">{{code}}</td>
-                        <td class="p-2 border text-center">{{#isGroup}}그룹{{/isGroup}}{{^isGroup}}솔로{{/isGroup}}</td>
                         <td class="p-2 border text-center">
-                            <a href="/admin/artists/{{id}}/delete" class="text-red-500 hover:underline">삭제</a>
+                            <a href="/admin/artists/{{artistId}}" class="text-teal-400 hover:underline">
+                                {{artistName}}</a></td>
+                        <td class="p-2 border text-center">{{type}} {{#isRepackage}}리패키지{{/isRepackage}}</td>
+                        <td class="p-2 border text-center">
+                            <a href="/admin/albums/{{id}}/delete" class="text-red-500 hover:underline">삭제</a>
                         </td>
                     </tr>
-                {{/artists}}
+                {{/albums}}
                 </tbody>
             </table>
         </section>
