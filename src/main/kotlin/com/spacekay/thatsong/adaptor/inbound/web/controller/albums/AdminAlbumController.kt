@@ -24,7 +24,7 @@ class AdminAlbumController(
         val albums = albumService.getAllActiveAlbums().map { AlbumSummaryDto(it) }
 
         model.addAttribute("albums", albums)
-        return "albums/album-list"
+        return "albums/album-main"
     }
 
     @GetMapping(value = ["/{id}"])

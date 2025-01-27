@@ -120,38 +120,7 @@
                         </button>
                     </div>
                 </form>
-                <section class="mt-6">
-                    <h2 class="text-lg font-bold mb-4">앨범 목록</h2>
-                    <table class="table-auto w-full bg-teal-900 shadow-md rounded-lg">
-                        <thead>
-                        <tr class="bg-teal-700 text-teal-200">
-                            <th class="p-2 border">아이디</th>
-                            <th class="p-2 border">이름</th>
-                            <th class="p-2 border">아티스트</th>
-                            <th class="p-2 border">타입</th>
-                            <th class="p-2 border">작업</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {{#albums}}
-                            <tr class="hover:bg-teal-800">
-                                <td class="p-2 border text-center">{{id}}</td>
-                                <td class="p-2 border text-center">
-                                    <a href="/admin/albums/{{id}}" class="text-teal-400 hover:underline">
-                                        {{name}}
-                                    </a>
-                                </td>
-                                <td class="p-2 border text-center">
-                                    {{artistName}}</td>
-                                <td class="p-2 border text-center">{{type}} {{#isRepackage}}리패키지{{/isRepackage}}</td>
-                                <td class="p-2 border text-center">
-                                    <a href="/admin/albums/{{id}}/delete" class="text-red-500 hover:underline">삭제</a>
-                                </td>
-                            </tr>
-                        {{/albums}}
-                        </tbody>
-                    </table>
-                </section>
+                {{>albums/album-list}}
             {{/artist}}
             {{^artist}}
                 아티스트 정보를 찾을 수 없습니다.
