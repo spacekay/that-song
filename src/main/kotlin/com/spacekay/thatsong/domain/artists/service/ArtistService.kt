@@ -18,13 +18,13 @@ class ArtistService(private val artistRepository: ArtistRepository) {
     fun getAllActiveArtists(): List<Artist> {
         return artistRepository.findAllByIsDeletedFalse()
     }
-    
+
     /**
      * . 개별 아티스트 조회
      */
     fun getArtistById(id: Long): Artist? {
         return artistRepository.findByIdOrNull(id)
-            ?: throw ResourceNotFoundException("User with id $id not found")
+            ?: throw ResourceNotFoundException("Artist with id $id not found")
     }
 
     /**

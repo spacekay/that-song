@@ -4,7 +4,9 @@ import com.spacekay.thatsong.adaptor.inbound.web.dto.artists.ArtistCreateRequest
 import com.spacekay.thatsong.adaptor.inbound.web.dto.artists.ArtistDetailsDto
 import com.spacekay.thatsong.adaptor.inbound.web.dto.artists.ArtistSummaryDto
 import com.spacekay.thatsong.adaptor.inbound.web.dto.artists.ArtistUpdateRequestDto
+import com.spacekay.thatsong.adaptor.inbound.web.dto.albums.AlbumSummaryDto
 import com.spacekay.thatsong.domain.artists.service.ArtistService
+import com.spacekay.thatsong.domain.albums.service.AlbumService
 import com.spacekay.thatsong.exception.ResourceNotFoundException
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -12,14 +14,14 @@ import org.springframework.web.bind.annotation.*
 
 @RequestMapping(value = ["/admin/artists"])
 @Controller
-class AdminArtistController(private val artistService: ArtistService) {
+class AdminArtistController(private val artistService: ArtistService, private val albumService: AlbumService) {
     @GetMapping
     fun listArtists(model: Model): String {
         // 아티스트 목록 조회
         val artists = artistService.getAllActiveArtists().map { ArtistSummaryDto(it) }
 
         model.addAttribute("artists", artists)
-        return "artist-list"
+        return "artists/artist-list"
     }
 
     @GetMapping(value = ["/{id}"])
@@ -30,14 +32,19 @@ class AdminArtistController(private val artistService: ArtistService) {
 
             model.addAttribute("artist", artist)
         } catch (e: ResourceNotFoundException) {
-            return "artist-edit"
+            return "artists/artist-edit"
         }
-        return "artist-edit"
+
+        // 앨범 목록 조회
+        val albums = albumService.getAlbumsByArtist(id).map { AlbumSummaryDto(it) }
+
+        model.addAttribute("albums", albums)
+        return "artists/artist-edit"
     }
 
     @GetMapping(value = ["/create"])
     fun getArtistCreatePage(model: Model): String {
-        return "artist-create"
+        return "artists/artist-create"
     }
 
     @PostMapping(value = ["/create"])
@@ -53,7 +60,7 @@ class AdminArtistController(private val artistService: ArtistService) {
             artistService.updateArtist(id, artistDto)
             return "redirect:/admin/artists"
         } catch (e: ResourceNotFoundException) {
-            return "artist-edit"
+            return "artists/artist-edit"
         } catch (e: RuntimeException) {
             throw e
         }

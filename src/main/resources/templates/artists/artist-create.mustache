@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>That Song Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Google Fonts - Noto Sans KR 추가 */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+        /* 기본 폰트 설정 */
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* 다크 모드 스타일 */
+        .dark-mode {
+            background-color: #1f2937; /* 다크 배경색 */
+            color: #d1fae5; /* 민트 텍스트 */
+        }
+
+        .dark-mode a {
+            color: #6ee7b7;
+        }
+
+        .dark-mode a:hover {
+            color: #34d399;
+        }
+    </style>
+</head>
+<body class="dark-mode font-sans">
+<div class="flex min-h-screen">
+    <!-- 사이드바 -->
+    {{>sidebar}}
+
+    <!-- 메인 콘텐츠 -->
+    <main class="flex-1 p-6 transition-all duration-300 md:pl-12 md:pr-12">
+        <header class="flex justify-between items-center pb-4 border-b border-teal-700">
+            <h1 class="text-2xl font-bold">아티스트 등록</h1>
+            <a href="/admin/artists" class="px-4 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
+                목록 보기
+            </a>
+        </header>
+
+        <section class="mt-6">
+            <h2 class="text-lg font-bold mb-4">아티스트 정보 등록</h2>
+            <form action="/admin/artists/create" method="POST" class="space-y-4 bg-teal-900 p-6 rounded-lg shadow-md">
+                <div>
+                    <label for="nameKr" class="block text-teal-200 font-bold mb-2">이름 (한글)</label>
+                    <input type="text" id="nameKr" name="nameKr" value=""
+                           class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                </div>
+
+                <div>
+                    <label for="nameEn" class="block text-teal-200 font-bold mb-2">이름 (영문)</label>
+                    <input type="text" id="nameEn" name="nameEn" value=""
+                           class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                </div>
+
+                <div>
+                    <label for="code" class="block text-teal-200 font-bold mb-2">코드</label>
+                    <input type="text" id="code" name="code" value=""
+                           class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                </div>
+
+                <div>
+                    <label class="block text-teal-200 font-bold mb-2">타입</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="isGroup" value="true" checked
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">그룹</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="isGroup" value="false"
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">솔로</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-teal-200 font-bold mb-2">활동 여부</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="isActive" value="true" checked
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">활동 중</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="isActive" value="false"
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">미활동</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="debutDate" class="block text-teal-200 font-bold mb-2">데뷔일</label>
+                    <input type="date" id="debutDate" name="debutDate" value=""
+                           class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                </div>
+
+                <div class="flex justify-center mt-6">
+                    <button type="submit" class="px-6 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
+                        등록하기
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>
