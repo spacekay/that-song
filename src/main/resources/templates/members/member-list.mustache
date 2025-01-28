@@ -1,0 +1,33 @@
+<section class="mt-6">
+    <h2 class="text-lg font-bold mb-4">멤버 목록</h2>
+    <table class="table-auto w-full bg-teal-900 shadow-md rounded-lg">
+        <thead>
+        <tr class="bg-teal-700 text-teal-200">
+            <th class="p-2 border">아이디</th>
+            <th class="p-2 border">이름</th>
+            <th class="p-2 border">코드</th>
+            <th class="p-2 border">성별</th>
+            <th class="p-2 border">생일</th>
+            <th class="p-2 border">작업</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#members}}
+            <tr class="hover:bg-teal-800">
+                <td class="p-2 border text-center">{{id}}</td>
+                <td class="p-2 border text-center">
+                    <a href="/admin/members/{{id}}" class="text-teal-400 hover:underline">
+                        {{name}}
+                    </a>
+                </td>
+                <td class="p-2 border text-center">{{code}}</td>
+                <td class="p-2 border text-center">{{gender}}</td>
+                <td class="p-2 border text-center">{{birthDate}}</td>
+                <td class="p-2 border text-center">
+                    <a href="/admin/members/{{id}}/delete" class="text-red-500 hover:underline">삭제</a>
+                </td>
+            </tr>
+        {{/members}}
+        </tbody>
+    </table>
+</section>
