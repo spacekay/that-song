@@ -4,6 +4,7 @@ import com.spacekay.thatsong.adaptor.inbound.web.dto.members.MemberCreateRequest
 import com.spacekay.thatsong.adaptor.inbound.web.dto.members.MemberUpdateRequestDto
 import com.spacekay.thatsong.domain.members.entity.Gender
 import com.spacekay.thatsong.domain.members.entity.Member
+import com.spacekay.thatsong.domain.members.repository.ArtistMemberRepository
 import com.spacekay.thatsong.domain.members.repository.MemberRepository
 import com.spacekay.thatsong.exception.ResourceNotFoundException
 import jakarta.transaction.Transactional
@@ -11,7 +12,10 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class MemberService(private val memberRepository: MemberRepository) {
+class MemberService(
+    private val memberRepository: MemberRepository,
+    private val artistMemberRepository: ArtistMemberRepository
+) {
 
     /**
      * . 멤버 목록 조회
@@ -23,6 +27,9 @@ class MemberService(private val memberRepository: MemberRepository) {
     /**
      * . 아티스트별 멤버 목록 조회 -> 추후 맵핑 데이터 가져오는 법 확인 후 진행
      */
+    fun getMembersByArtistId(artistId: Long): List<Member> {
+        return artistMemberRepository.findAllByArtistId(artistId).map { it.member }
+    }
 
     /**
      * . 개별 멤버 조회
