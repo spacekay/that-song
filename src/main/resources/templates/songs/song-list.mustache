@@ -1,0 +1,33 @@
+<section class="mt-6">
+    <h2 class="text-lg font-bold mb-4">곡 목록</h2>
+    <table class="table-auto w-full bg-teal-900 shadow-md rounded-lg">
+        <thead>
+        <tr class="bg-teal-700 text-teal-200">
+            <th class="p-2 border">아이디</th>
+            <th class="p-2 border">이름</th>
+            <th class="p-2 border">키워드</th>
+            <th class="p-2 border">뮤비 보유 여부</th>
+            <th class="p-2 border">가사</th>
+            <th class="p-2 border">작업</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#songs}}
+            <tr class="hover:bg-teal-800">
+                <td class="p-2 border text-center">{{id}}</td>
+                <td class="p-2 border text-center">
+                    <a href="/admin/songs/{{id}}" class="text-teal-400 hover:underline">
+                        {{nameKr}} ({{nameEn}})
+                    </a>
+                </td>
+                <td class="p-2 border text-center">{{#keywords}}{{.}} {{/keywords}}</td>
+                <td class="p-2 border text-center">{{#hasMv}}보유{{/hasMv}}{{^hasMv}}미보유{{/hasMv}}</td>
+                <td class="p-2 border text-center">{{lyricsSnippet}}</td>
+                <td class="p-2 border text-center">
+                    <a href="/admin/songs/{{id}}/delete" class="text-red-500 hover:underline">삭제</a>
+                </td>
+            </tr>
+        {{/songs}}
+        </tbody>
+    </table>
+</section>

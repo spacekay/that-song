@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>header}}
+<body class="dark-mode font-sans">
+<div class="flex min-h-screen">
+    <!-- 사이드바 -->
+    {{>sidebar}}
+
+    <!-- 메인 콘텐츠 -->
+    <main class="flex-1 p-6 transition-all duration-300 md:pl-12 md:pr-12">
+
+        <header class="flex justify-between items-center pb-4 border-b border-teal-700">
+            <h1 class="text-2xl font-bold">곡 등록</h1>
+            <a href="/admin/songs" class="px-4 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
+                목록 보기
+            </a>
+        </header>
+
+        <section class="mt-6">
+            <h2 class="text-lg font-bold mb-4">곡 정보 등록</h2>
+            <form action="/admin/songs/create" method="POST" id="submit-form"
+                  onsubmit="return prepareFormSubmission({'genre':'genres', 'keyword':'keywords', 'mood': 'moods'});"
+                  class="space-y-4 bg-teal-900 p-6 rounded-lg shadow-md">
+                <div>
+                    <label for="nameKr" class="block text-teal-200 font-bold mb-2">이름 (한글)</label>
+                    <input type="text" id="nameKr" name="nameKr" value=""
+                           class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                </div>
+
+                <div>
+                    <label for="nameEn" class="block text-teal-200 font-bold mb-2">이름 (영문)</label>
+                    <input type="text" id="nameEn" name="nameEn" value=""
+                           class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                </div>
+                <div>
+                    <label for="keyword" class="block text-teal-200 font-bold mb-2">키워드</label>
+                    <div id="input-container-keywords" class="space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <input type="text" id="keyword" name="keyword" value=""
+                                   class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                            <button type="button" onclick="addInputField('input-container-keywords', 'keyword')"
+                                    class="p-2 bg-teal-600 text-white rounded hover:bg-teal-700">+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="lyrics" class="block text-teal-200 font-bold mb-2">가사</label>
+                    <textarea id="lyrics" name="lyrics"
+                              class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200"></textarea>
+                </div>
+                <div>
+                    <label for="genre-select-box" class="block text-teal-200 font-bold mb-2">장르</label>
+                    <div id="select-container-genre" class="mb-2">
+                        <select id="genre-select-box" name="genre-select-box"
+                                onchange="addReadOnlyInput('genre-select-box', 'input-container-genre', 'genre', '{{genres}}')"
+                                class="form-select w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                            {{#genres}}
+                                <option value="{{name}}">{{value}}</option>
+                            {{/genres}}
+                        </select>
+                    </div>
+                    <div id="input-container-genre"></div>
+                </div>
+                <div>
+                    <label for="mood" class="block text-teal-200 font-bold mb-2">분위기 (청량, 강렬, 아련 등)</label>
+                    <div id="input-container-moods" class="space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <input type="text" id="mood" name="mood" value=""
+                                   class="w-full p-2 rounded border border-teal-700 bg-teal-800 text-teal-200">
+                            <button type="button" onclick="addInputField('input-container-moods', 'mood')"
+                                    class="p-2 bg-teal-600 text-white rounded hover:bg-teal-700">+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-teal-200 font-bold mb-2">뮤비 보유 여부</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="hasMv" value="true" checked
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">보유</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="hasMv" value="false"
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">미보유</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-teal-200 font-bold mb-2">음악방송 보유 여부</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="hasMusicShow" value="true" checked
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">보유</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="hasMusicShow" value="false"
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">미보유</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-teal-200 font-bold mb-2">공식 영상 보유 여부</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="hasOfficialClip" value="true" checked
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">보유</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="hasOfficialClip" value="false"
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">미보유</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-teal-200 font-bold mb-2">콘서트 셋리스트 포함 여부</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="isConcertSetList" value="true" checked
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">포함</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="isConcertSetList" value="false"
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">미포함</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-teal-200 font-bold mb-2">활동 여부</label>
+                    <div class="flex items-center space-x-4">
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="isActive" value="true" checked
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">활동</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="isActive" value="false"
+                                   class="form-radio text-teal-600">
+                            <span class="ml-2 text-teal-200">미활동</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-center mt-6">
+                    <button type="submit" class="px-6 py-2 bg-teal-700 text-white rounded hover:bg-teal-600">
+                        등록하기
+                    </button>
+                </div>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>
