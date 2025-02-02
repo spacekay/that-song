@@ -74,7 +74,7 @@ class MemberService(
     @Transactional
     fun deleteMember(id: Long) {
         val member = memberRepository.findByIdOrNull(id)
-            ?: throw ResourceNotFoundException("Album with id $id not found")
+            ?: throw ResourceNotFoundException("Member with id $id not found")
 
         // 엔티티 업데이트
         member.deleteMember()
